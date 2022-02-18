@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+    <Metadata>
+        <Identity Id="17e8fa63-4183-460e-8840-f8b2293f545c" Version="1.0.3" Language="en-US" Publisher="Duong Nguyen" />
+        <DisplayName>sqlserver-maid</DisplayName>
+        <Description xml:space="preserve">Sqlserver Maid is a SQL Server Management Studio Add-in</Description>
+        <MoreInfo>https://github.com/nbduong/sqlserver-maid</MoreInfo>
+        <License>Resources\license.txt</License>
+        <Icon>Resources\Command1Package.ico</Icon>
+        <Tags>ssms</Tags>
+    </Metadata>
+    <Installation AllUsers="true">
+        <InstallationTarget Id="ssms" Version="[13.0,16.0)" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+        <Dependency Id="Microsoft.VisualStudio.MPF.14.0" DisplayName="Visual Studio MPF 14.0" d:Source="Installed" Version="[14.0]" />
+    </Dependencies>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    </Assets>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[11.0,16.0)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+</PackageManifest>
