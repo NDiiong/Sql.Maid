@@ -10,11 +10,10 @@ namespace Sqlserver.maid.Infrastructures.SqlControl
     {
         public GridControl GetCurrentGridControl(IServiceProvider serviceProvider)
         {
-            var ms = serviceProvider.GetService(typeof(IVsMonitorSelection)) as IVsMonitorSelection;
+            var vsMonitorSelection = serviceProvider.GetService(typeof(IVsMonitorSelection)) as IVsMonitorSelection;
+            vsMonitorSelection.GetCurrentElementValue((int)VSConstants.VSSELELEMID.SEID_WindowFrame, out var _vsWindowFrame);
 
-            ms.GetCurrentElementValue((int)VSConstants.VSSELELEMID.SEID_WindowFrame, out object _vsWindowFrame);
             var vsWindowFrame = _vsWindowFrame as IVsWindowFrame;
-
             vsWindowFrame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out var _control);
             switch (_control)
             {
