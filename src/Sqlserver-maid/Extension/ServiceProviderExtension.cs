@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using System;
 
-namespace Sqlserver.maid.Toolkit.Extension
+namespace Sqlserver.maid.Extension
 {
     public static class ServiceProviderExtension
     {

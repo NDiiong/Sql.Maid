@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
 using Task = System.Threading.Tasks.Task;
 
-namespace Sqlserver.maid.Toolkit
+namespace Sqlserver.maid.Services
 {
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [PackageRegistration(UseManagedResourcesOnly = true)]

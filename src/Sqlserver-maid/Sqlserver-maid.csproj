@@ -86,8 +86,8 @@
     <CopyVsixExtensionLocation>C:\Program Files %28x86%29\Microsoft SQL Server Management Studio 18\Common7\IDE\Extensions\sqlserver-maid</CopyVsixExtensionLocation>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Infrastructures\Control\GridResultSelectedCell.cs" />
-    <Compile Include="Infrastructures\Control\GridResultControl.cs" />
+    <Compile Include="Infrastructures\SqlControl\GridResultSelectedCell.cs" />
+    <Compile Include="Infrastructures\SqlControl\GridResultControl.cs" />
     <Compile Include="Commands\SqlExportGridResultCommand.cs" />
     <Compile Include="Commands\SqlJoinLinesCommand.cs" />
     <Compile Include="Commands\SqlPasteAsInsertedHeaderQueryCommand.cs" />
@@ -95,13 +95,15 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructures\Function.cs" />
     <Compile Include="Infrastructures\ISqlQueryService.cs" />
+    <Compile Include="Infrastructures\SqlControl\ISqlManagementService.cs" />
+    <Compile Include="Infrastructures\SqlControl\SqlManagementService.cs" />
     <Compile Include="Infrastructures\SqlQueryService.cs" />
-    <Compile Include="Toolkit\Extension\ObjectExtension.cs" />
-    <Compile Include="Toolkit\Services\IClipboardService.cs" />
-    <Compile Include="Toolkit\Services\ITextDocumentService.cs" />
+    <Compile Include="Extension\ObjectExtension.cs" />
+    <Compile Include="Services\IClipboardService.cs" />
+    <Compile Include="Services\ITextDocumentService.cs" />
     <Compile Include="Commands\SqlQueryTemplateCommand.cs" />
-    <Compile Include="Toolkit\Services\TextDocumentService.cs" />
-    <Compile Include="Toolkit\Services\ClipboardService.cs" />
+    <Compile Include="Services\TextDocumentService.cs" />
+    <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="source.extension.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -112,7 +114,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SqlMaidAsyncPackage.vsct</DependentUpon>
     </Compile>
-    <Compile Include="Toolkit\Extension\PackageExtension.cs" />
+    <Compile Include="Extension\PackageExtension.cs" />
     <Compile Include="Commands\SqlPasteAsCsvCommand.cs" />
     <Compile Include="SqlMaidAsyncPackage.cs" />
     <Compile Include="Options\GeneralOptionsPage.cs">
@@ -125,10 +127,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Settings\Settings.cs" />
-    <Compile Include="Toolkit\Extension\ServiceProviderExtension.cs" />
-    <Compile Include="Toolkit\SqlAsyncPackage.cs" />
-    <Compile Include="Toolkit\UndoTransaction.cs" />
-    <Compile Include="Toolkit\WpfTextViewHelper.cs" />
+    <Compile Include="Extension\ServiceProviderExtension.cs" />
+    <Compile Include="Services\SqlAsyncPackage.cs" />
+    <Compile Include="Services\UndoTransaction.cs" />
+    <Compile Include="Services\WpfTextViewHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

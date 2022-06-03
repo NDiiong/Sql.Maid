@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sqlserver.maid.Toolkit.Extension
+namespace Sqlserver.maid.Extension
 {
     public static class PackageExtension
     {

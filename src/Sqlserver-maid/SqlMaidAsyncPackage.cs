@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Sqlserver.maid.Commands;
 using Sqlserver.maid.Options;
-using Sqlserver.maid.Toolkit;
+using Sqlserver.maid.Services;
 using System;
 using System.Runtime.InteropServices;
 using Task = System.Threading.Tasks.Task;

@@ -1,112 +1,64 @@
-﻿using EnvDTE;
+﻿#pragma warning disable IDE1006
+
+using EnvDTE;
 using EnvDTE80;
-using Microsoft.SqlServer.Management.UI.Grid;
-using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.CommandBars;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Sqlserver.maid.Infrastructures;
-using Sqlserver.maid.Infrastructures.Control;
+using Sqlserver.maid.Infrastructures.SqlControl;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using Task = System.Threading.Tasks.Task;
 
 namespace Sqlserver.maid.Commands
 {
     internal sealed class SqlExportGridResultCommand
     {
+        private const string SQL_RESULT_GRID_CONTEXT_NAME = "SQL Results Grid Tab Context";
+
+        private static readonly ISqlManagementService _sqlManagementService;
+        static SqlExportGridResultCommand()
+        {
+            _sqlManagementService = new SqlManagementService();
+        }
+
         public static async Task InitializeAsync(Package package)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             var dte = Package.GetGlobalService(typeof(DTE)) as DTE2;
 
-            var tabContext = ((CommandBars)dte.CommandBars)["SQL Results Grid Tab Context"];
-            var btnSaveToScript = tabContext.Controls
+            var sqlResultGridContext = ((CommandBars)dte.CommandBars)[SQL_RESULT_GRID_CONTEXT_NAME];
+            var btnInsertScriptControl = sqlResultGridContext.Controls
                 .Add(MsoControlType.msoControlButton, Type.Missing, Type.Missing, Type.Missing, true) as CommandBarButton;
-            btnSaveToScript.Caption = "SpaceX: Save data to script";
-            btnSaveToScript.Click += (CommandBarButton _, ref bool __) => BtnSaveToScript_Click(package, dte);
+
+            btnInsertScriptControl.Visible = btnInsertScriptControl.Enabled = true;
+            btnInsertScriptControl.Caption = "Generate Insert Script";
+            btnInsertScriptControl.Click += (CommandBarButton _, ref bool __) => GenerateInsertScriptEventHandler(package, dte);
         }
 
-        private static void BtnSaveToScript_Click(IServiceProvider serviceProvider, DTE2 dte)
+        private static void GenerateInsertScriptEventHandler(IServiceProvider serviceProvider, DTE2 dte)
         {
-            var gridControl = GetCurrentGridControl(serviceProvider);
-            if (gridControl != null)
+            try
             {
-                var controller = new GridResultControl(gridControl);
-
-                GetGridData(gridControl, out List<string> columnHeaderList, out List<List<string>> data);
-
-                string result = string.Join("\r\n,", data.Select(line => $"({string.Join(", ", line)})"));
-
-                result = $"-- INSERT INTO #tmp_GridResults ({string.Join(", ", columnHeaderList)})\r\n"
-                    + $"select * from(values \r\n {result}\r\n) as T({string.Join(", ", columnHeaderList)})";
-
-                var textDoc = (TextDocument)dte.ActiveDocument.Object(null);
-                textDoc.EndPoint.CreateEditPoint().Insert(result);
-            }
-        }
-
-        private static void GetGridData(GridControl gridControl, out List<string> columnHeaderList, out List<List<string>> data)
-        {
-            int columnsNumber = gridControl.ColumnsNumber;
-            long totalRows = gridControl.GridStorage.NumRows();
-            columnHeaderList = new List<string>(columnsNumber);
-            for (int j = 1; j < columnsNumber; j++)
-            {
-                string text;
-                gridControl.GetHeaderInfo(j, out text, out Bitmap bitmap);
-                if (columnHeaderList.Contains("[" + text + "]"))
+                var currentGridControl = _sqlManagementService.GetCurrentGridControl(serviceProvider);
+                if (currentGridControl != null)
                 {
-                    text = text + "_" + j.ToString();
+                    using (var gridResultControl = new GridResultControl(currentGridControl))
+                    {
+                        var columnHeaderList = gridResultControl.GetStringColumnHeadersInserted();
+                        var contentRows = gridResultControl.GetStringRowsInserted();
+
+                        var text = string.Join("\r\n,", contentRows.Select(line => $"({string.Join(", ", line)})"));
+                        text = $"-- INSERT INTO #_tmp ({string.Join(", ", columnHeaderList)})\r\n"
+                        + $"SELECT * FROM(VALUES \r\n {text}\r\n) AS _tab({string.Join(", ", columnHeaderList)})";
+
+                        var textDoc = (TextDocument)dte.ActiveDocument.Object(null);
+                        textDoc.EndPoint.CreateEditPoint().Insert(text);
+                    }
                 }
-                columnHeaderList.Add("[" + text + "]");
             }
-
-            data = new List<List<string>>();
-
-            for (long rowNum = 0L; rowNum < totalRows; rowNum += 1L)
+            catch (Exception)
             {
-                var row = new List<string>();
-                for (int colNum = 1; colNum < columnsNumber; colNum++)
-                {
-                    string cellText = gridControl.GridStorage.GetCellDataAsString(rowNum, colNum) ?? "";
-                    cellText = cellText.Replace("'", "''");
-                    if (true)
-                    {
-                        cellText = cellText.Trim();
-                    }
-                    if (cellText.Equals("NULL", StringComparison.OrdinalIgnoreCase))
-                    {
-                    }
-                    else
-                    {
-                        cellText = "N'" + cellText + "'";
-                    }
-                    row.Add(cellText);
-                }
-
-                data.Add(row);
             }
-        }
-
-        private static GridControl GetCurrentGridControl(IServiceProvider serviceProvider)
-        {
-            var ms = serviceProvider.GetService(typeof(IVsMonitorSelection)) as IVsMonitorSelection;
-
-            ms.GetCurrentElementValue((int)VSConstants.VSSELELEMID.SEID_WindowFrame, out object _vsWindowFrame);
-            var vsWindowFrame = _vsWindowFrame as IVsWindowFrame;
-
-            vsWindowFrame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out var _control);
-            switch (_control)
-            {
-                case Control control:
-                    return Function.Run(() => { return (GridControl)((ContainerControl)((ContainerControl)control).ActiveControl).ActiveControl; });
-            }
-
-            return null;
         }
     }
 }

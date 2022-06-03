@@ -1,13 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Sqlserver.maid.Toolkit.Extension
+namespace Sqlserver.maid.Extension
 {
     public static class ObjectExtension
     {
         public static T As<T>(this object @value)
         {
-            return (T)As(@value, typeof(T));
+            return (T)@value.As(typeof(T));
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Sqlserver.maid.Toolkit.Extension
                 throw new InvalidOperationException("Invalid Cast Enum");
             }
 
-            if (conversionType is IConvertible || (conversionType.IsValueType && !conversionType.IsEnum))
+            if (conversionType is IConvertible || conversionType.IsValueType && !conversionType.IsEnum)
                 return Convert.ChangeType(@value, conversionType);
 
             return value;

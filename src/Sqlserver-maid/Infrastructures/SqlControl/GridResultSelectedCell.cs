@@ -1,6 +1,6 @@
 ﻿using Microsoft.SqlServer.Management.UI.Grid;
 
-namespace Sqlserver.maid.Infrastructures.Control
+namespace Sqlserver.maid.Infrastructures.SqlControl
 {
     public class GridResultSelectedCell
     {
@@ -15,7 +15,7 @@ namespace Sqlserver.maid.Infrastructures.Control
 
         public static implicit operator GridResultSelectedCell(BlockOfCells blockOfCells)
         {
-            return Function.Run(() => { return new GridResultSelectedCell(blockOfCells.OriginalY, blockOfCells.OriginalX); });
+            return new GridResultSelectedCell(blockOfCells.OriginalY, blockOfCells.OriginalX);
         }
     }
 }

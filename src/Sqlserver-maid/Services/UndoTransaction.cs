@@ -1,7 +1,7 @@
 ﻿using EnvDTE80;
 using System;
 
-namespace Sqlserver.maid.Toolkit
+namespace Sqlserver.maid.Services
 {
     internal class UndoTransaction
     {
