@@ -86,11 +86,14 @@
     <CopyVsixExtensionLocation>C:\Program Files %28x86%29\Microsoft SQL Server Management Studio 18\Common7\IDE\Extensions\sqlserver-maid</CopyVsixExtensionLocation>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Infrastructures\Control\GridResultSelectedCell.cs" />
+    <Compile Include="Infrastructures\Control\GridResultControl.cs" />
     <Compile Include="Commands\SqlExportGridResultCommand.cs" />
     <Compile Include="Commands\SqlJoinLinesCommand.cs" />
     <Compile Include="Commands\SqlPasteAsInsertedHeaderQueryCommand.cs" />
     <Compile Include="Commands\SqlPasteAsInsertedQueryCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Infrastructures\Function.cs" />
     <Compile Include="Infrastructures\ISqlQueryService.cs" />
     <Compile Include="Infrastructures\SqlQueryService.cs" />
     <Compile Include="Toolkit\Extension\ObjectExtension.cs" />

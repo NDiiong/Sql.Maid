@@ -5,6 +5,8 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.CommandBars;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Sqlserver.maid.Infrastructures;
+using Sqlserver.maid.Infrastructures.Control;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -33,6 +35,8 @@ namespace Sqlserver.maid.Commands
             var gridControl = GetCurrentGridControl(serviceProvider);
             if (gridControl != null)
             {
+                var controller = new GridResultControl(gridControl);
+
                 GetGridData(gridControl, out List<string> columnHeaderList, out List<List<string>> data);
 
                 string result = string.Join("\r\n,", data.Select(line => $"({string.Join(", ", line)})"));
@@ -49,7 +53,6 @@ namespace Sqlserver.maid.Commands
         {
             int columnsNumber = gridControl.ColumnsNumber;
             long totalRows = gridControl.GridStorage.NumRows();
-
             columnHeaderList = new List<string>(columnsNumber);
             for (int j = 1; j < columnsNumber; j++)
             {
@@ -100,7 +103,7 @@ namespace Sqlserver.maid.Commands
             switch (_control)
             {
                 case Control control:
-                    return (GridControl)((ContainerControl)((ContainerControl)control).ActiveControl).ActiveControl;
+                    return Function.Run(() => { return (GridControl)((ContainerControl)((ContainerControl)control).ActiveControl).ActiveControl; });
             }
 
             return null;
