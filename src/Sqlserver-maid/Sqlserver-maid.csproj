@@ -94,19 +94,6 @@
     <Compile Include="Infrastructures\ISqlQueryService.cs" />
     <Compile Include="Infrastructures\SqlQueryService.cs" />
     <Compile Include="Toolkit\Extension\ObjectExtension.cs" />
-    <Compile Include="Toolkit\Menus\ICommand.cs" />
-    <Compile Include="Toolkit\Menus\ISqlCommand.cs" />
-    <Compile Include="Toolkit\Menus\ISqlCommandBase.cs" />
-    <Compile Include="Toolkit\Menus\SqlCommandBase.cs" />
-    <Compile Include="Toolkit\Menus\Components\SqlExportResultGridRootCommand.cs" />
-    <Compile Include="Toolkit\Menus\Components\SqlExportResultGridToExcelCommand.cs" />
-    <Compile Include="Toolkit\Menus\Components\SqlExportResultGridToJsonCommand.cs" />
-    <Compile Include="Toolkit\Menus\ISqlFileEditorContext.cs" />
-    <Compile Include="Toolkit\Menus\ISqlMenuContext.cs" />
-    <Compile Include="Toolkit\Menus\ISqlResultGridContext.cs" />
-    <Compile Include="Toolkit\Menus\SqlFileEditorContext.cs" />
-    <Compile Include="Toolkit\Menus\SqlMenuContext.cs" />
-    <Compile Include="Toolkit\Menus\SqlResultGridContext.cs" />
     <Compile Include="Toolkit\Services\IClipboardService.cs" />
     <Compile Include="Toolkit\Services\ITextDocumentService.cs" />
     <Compile Include="Commands\SqlQueryTemplateCommand.cs" />
@@ -172,6 +159,9 @@
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.SqlServer.GridControl">
+      <HintPath>..\packages\Microsoft.SqlServer.GridControl.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.TransactSql.ScriptDom.14.0.3660.1\lib\net40\Microsoft.SqlServer.TransactSql.ScriptDom.dll</HintPath>
     </Reference>
