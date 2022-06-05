@@ -72,7 +72,7 @@ namespace Sqlserver.maid.Infrastructures.SqlControl
                         columnName = columnName + "_" + colIndex.ToString();
                     }
 
-                    columnHeaders[colIndex - 1] = columnName;
+                    columnHeaders[colIndex - 1] = "[" + columnName + "]";
                 }
 
                 return columnHeaders;
