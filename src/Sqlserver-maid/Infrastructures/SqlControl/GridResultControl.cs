@@ -1,6 +1,7 @@
 ﻿using Microsoft.SqlServer.Management.UI.Grid;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 
@@ -77,6 +78,31 @@ namespace Sqlserver.maid.Infrastructures.SqlControl
 
                 return columnHeaders;
             });
+        }
+
+        public DataTable AsDatatable()
+        {
+            var datatable = new DataTable();
+
+            var headers = GetColumnHeaders();
+            foreach (var item in headers)
+            {
+                datatable.Columns.Add(item);
+            }
+
+            for (var nRowIndex = 0L; nRowIndex < RowCount; nRowIndex += 1L)
+            {
+                var row = datatable.NewRow();
+                for (var nColIndex = 1; nColIndex < ColumnCount; nColIndex++)
+                {
+                    var cellText = GetCellValue(nRowIndex, nColIndex) ?? "";
+                    row[nColIndex - 1] = cellText;
+                }
+
+                datatable.Rows.Add(row);
+            }
+
+            return datatable;
         }
 
         public IEnumerable<IEnumerable<string>> GetStringRowsInserted()

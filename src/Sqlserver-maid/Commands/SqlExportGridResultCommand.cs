@@ -16,6 +16,7 @@ namespace Sqlserver.maid.Commands
         private const string SQL_RESULT_GRID_CONTEXT_NAME = "SQL Results Grid Tab Context";
 
         private static readonly ISqlManagementService _sqlManagementService;
+
         static SqlExportGridResultCommand()
         {
             _sqlManagementService = new SqlManagementService();
