@@ -1,6 +1,7 @@
 ﻿using Microsoft.SqlServer.Management.UI.Grid;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
+using Sqlserver.maid.Extension;
 using System;
 using System.Windows.Forms;
 
@@ -18,7 +19,10 @@ namespace Sqlserver.maid.Infrastructures.SqlControl
             switch (_control)
             {
                 case Control control:
-                    return (GridControl)((ContainerControl)((ContainerControl)control).ActiveControl).ActiveControl;
+
+                    return control.As<ContainerControl>()
+                        .ActiveControl.As<ContainerControl>()
+                        .ActiveControl.As<GridControl>();
             }
 
             return null;

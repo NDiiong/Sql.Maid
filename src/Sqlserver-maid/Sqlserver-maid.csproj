@@ -310,6 +310,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="dll\Microsoft.SqlServer.GridControl.dll" />
     <Content Include="Resources\Command1Package.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
