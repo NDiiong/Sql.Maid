@@ -102,7 +102,6 @@
     <Compile Include="Services\File\IFileService.cs" />
     <Compile Include="Services\File\JsonFileService.cs" />
     <Compile Include="Services\Function.cs" />
-    <Compile Include="Commands\SqlQueryTemplateCommand.cs" />
     <Compile Include="Services\Log\Logger.cs" />
     <Compile Include="Services\Runtime\ClipboardService.cs" />
     <Compile Include="Services\Runtime\IClipboardService.cs" />

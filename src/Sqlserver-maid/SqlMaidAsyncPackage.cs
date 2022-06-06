@@ -20,7 +20,6 @@ namespace Sqlserver.maid
         {
             await SqlJoinLinesCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlPasteAsCsvCommand.InitializeAsync(this).ConfigureAwait(false);
-            await SqlQueryTemplateCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlSaveAsGridResultCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlPasteAsInsertedQueryCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlInsertScriptGridResultCommand.InitializeAsync(this).ConfigureAwait(false);
