@@ -6,7 +6,6 @@
         <Description xml:space="preserve">Sqlserver Maid is a SQL Server Management Studio Add-in</Description>
         <MoreInfo>https://github.com/nbduong/sqlserver-maid</MoreInfo>
         <License>Resources\license.txt</License>
-        <Icon>Resources\Command1Package.ico</Icon>
         <Tags>ssms</Tags>
     </Metadata>
     <Installation AllUsers="true">

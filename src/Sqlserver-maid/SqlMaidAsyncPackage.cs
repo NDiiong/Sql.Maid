@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Sqlserver.maid.Commands;
 using Sqlserver.maid.Commands.Grid;
-using Sqlserver.maid.Options;
 using Sqlserver.maid.Services.SqlPackage;
 using System;
 using System.Runtime.InteropServices;
@@ -11,7 +10,6 @@ namespace Sqlserver.maid
 {
     [Guid(PackageGuids.guidSqlMaidPackageString)]
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400)]
-    [ProvideOptionPage(typeof(GeneralOptionsPage), "sqlserver maid", "General", 100, 101, true)]
     public sealed class SqlMaidAsyncPackage : SqlAsyncPackage
     {
         public SqlMaidAsyncPackage() : base(PackageGuids.guidSqlMaidPackageString)
