@@ -1,7 +1,8 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Sqlserver.maid.Commands;
+using Sqlserver.maid.Commands.Grid;
 using Sqlserver.maid.Options;
-using Sqlserver.maid.Services;
+using Sqlserver.maid.Services.SqlPackage;
 using System;
 using System.Runtime.InteropServices;
 using Task = System.Threading.Tasks.Task;
@@ -22,8 +23,9 @@ namespace Sqlserver.maid
             await SqlJoinLinesCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlPasteAsCsvCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlQueryTemplateCommand.InitializeAsync(this).ConfigureAwait(false);
-            await SqlExportGridResultCommand.InitializeAsync(this).ConfigureAwait(false);
+            await SqlSaveAsGridResultCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlPasteAsInsertedQueryCommand.InitializeAsync(this).ConfigureAwait(false);
+            await SqlInsertScriptGridResultCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlPasteAsInsertedHeaderQueryCommand.InitializeAsync(this).ConfigureAwait(false);
         }
     }

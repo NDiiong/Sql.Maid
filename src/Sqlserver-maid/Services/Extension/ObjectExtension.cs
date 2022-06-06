@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Sqlserver.maid.Extension
+namespace Sqlserver.maid.Services.Extension
 {
     public static class ObjectExtension
     {
@@ -31,9 +31,6 @@ namespace Sqlserver.maid.Extension
 
                 if (string.IsNullOrWhiteSpace(_value) && conversionType != typeof(string))
                     return default;
-
-                if (conversionType == typeof(Version))
-                    return new Version(_value);
 
                 if (conversionType.IsEnum)
                 {

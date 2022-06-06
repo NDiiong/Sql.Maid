@@ -1,4 +1,4 @@
-﻿namespace Sqlserver.maid.Infrastructures
+﻿namespace Sqlserver.maid.Services.SqlQuery
 {
     public interface ISqlQueryService
     {

@@ -4,43 +4,33 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
 using Microsoft.VisualStudio.Shell;
-using Sqlserver.maid.Infrastructures.SqlControl;
+using Sqlserver.maid.Services;
+using Sqlserver.maid.Services.SqlControl;
 using System;
 using System.Linq;
 using Task = System.Threading.Tasks.Task;
 
-namespace Sqlserver.maid.Commands
+namespace Sqlserver.maid.Commands.Grid
 {
-    internal sealed class SqlExportGridResultCommand
+    internal sealed class SqlInsertScriptGridResultCommand : SqlGridResultCommand
     {
-        private const string SQL_RESULT_GRID_CONTEXT_NAME = "SQL Results Grid Tab Context";
-
-        private static readonly ISqlManagementService _sqlManagementService;
-
-        static SqlExportGridResultCommand()
-        {
-            _sqlManagementService = new SqlManagementService();
-        }
-
         public static async Task InitializeAsync(Package package)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             var dte = Package.GetGlobalService(typeof(DTE)) as DTE2;
 
-            var sqlResultGridContext = ((CommandBars)dte.CommandBars)[SQL_RESULT_GRID_CONTEXT_NAME];
-            var btnInsertScriptControl = sqlResultGridContext.Controls
+            var btnInsertScriptControl = SqlResultGridContext.Controls
                 .Add(MsoControlType.msoControlButton, Type.Missing, Type.Missing, Type.Missing, true) as CommandBarButton;
-
             btnInsertScriptControl.Visible = btnInsertScriptControl.Enabled = true;
             btnInsertScriptControl.Caption = "Generate Insert Script";
-            btnInsertScriptControl.Click += (CommandBarButton _, ref bool __) => GenerateInsertScriptEventHandler(package, dte);
+            btnInsertScriptControl.Click += (CommandBarButton _, ref bool __) => SqlInsertScriptGridResultEventHandler(package, dte);
         }
 
-        private static void GenerateInsertScriptEventHandler(IServiceProvider serviceProvider, DTE2 dte)
+        private static void SqlInsertScriptGridResultEventHandler(IServiceProvider serviceProvider, DTE2 dte)
         {
-            try
+            Function.Run(() =>
             {
-                var currentGridControl = _sqlManagementService.GetCurrentGridControl(serviceProvider);
+                var currentGridControl = SqlManagementService.GetCurrentGridControl(serviceProvider);
                 if (currentGridControl != null)
                 {
                     using (var gridResultControl = new GridResultControl(currentGridControl))
@@ -56,10 +46,7 @@ namespace Sqlserver.maid.Commands
                         textDoc.EndPoint.CreateEditPoint().Insert(text);
                     }
                 }
-            }
-            catch (Exception)
-            {
-            }
+            });
         }
     }
 }

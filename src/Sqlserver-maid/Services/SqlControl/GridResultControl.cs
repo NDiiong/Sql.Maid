@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 
-namespace Sqlserver.maid.Infrastructures.SqlControl
+namespace Sqlserver.maid.Services.SqlControl
 {
     public class GridResultControl : IDisposable
     {
@@ -26,58 +26,46 @@ namespace Sqlserver.maid.Infrastructures.SqlControl
 
         public string GetCellValue(long nRowIndex, int nColIndex)
         {
-            return Function.Run(() =>
-            {
-                return _gridControl.GridStorage.GetCellDataAsString(nRowIndex, nColIndex);
-            });
+            return _gridControl.GridStorage.GetCellDataAsString(nRowIndex, nColIndex);
         }
 
         public string[] GetColumnHeaders()
         {
-            return Function.Run(() =>
+            var columnHeaders = new string[ColumnCount - 1];
+            for (var colIndex = 1; colIndex < ColumnCount; colIndex++)
             {
-                var columnHeaders = new string[ColumnCount - 1];
-                for (var colIndex = 1; colIndex < ColumnCount; colIndex++)
-                {
-                    columnHeaders[colIndex - 1] = GetColumnHeader(colIndex);
-                }
+                columnHeaders[colIndex - 1] = GetColumnHeader(colIndex);
+            }
 
-                return columnHeaders;
-            });
+            return columnHeaders;
         }
 
         public string GetColumnHeader(int nColIndex)
         {
-            return Function.Run(() =>
+            if (nColIndex > 0 && nColIndex < ColumnCount)
             {
-                if (nColIndex > 0 && nColIndex < ColumnCount)
-                {
-                    _gridControl.GetHeaderInfo(nColIndex, out string result, out Bitmap _);
-                    return result;
-                }
+                _gridControl.GetHeaderInfo(nColIndex, out string result, out Bitmap _);
+                return result;
+            }
 
-                return string.Empty;
-            });
+            return string.Empty;
         }
 
         public string[] GetStringColumnHeadersInserted()
         {
-            return Function.Run(() =>
+            var columnHeaders = new string[ColumnCount - 1];
+            for (var colIndex = 1; colIndex < ColumnCount; colIndex++)
             {
-                var columnHeaders = new string[ColumnCount - 1];
-                for (var colIndex = 1; colIndex < ColumnCount; colIndex++)
+                var columnName = GetColumnHeader(colIndex);
+                if (columnHeaders.Contains("[" + columnName + "]"))
                 {
-                    var columnName = GetColumnHeader(colIndex);
-                    if (columnHeaders.Contains("[" + columnName + "]"))
-                    {
-                        columnName = columnName + "_" + colIndex.ToString();
-                    }
-
-                    columnHeaders[colIndex - 1] = "[" + columnName + "]";
+                    columnName = columnName + "_" + colIndex.ToString();
                 }
 
-                return columnHeaders;
-            });
+                columnHeaders[colIndex - 1] = "[" + columnName + "]";
+            }
+
+            return columnHeaders;
         }
 
         public DataTable AsDatatable()
@@ -96,7 +84,8 @@ namespace Sqlserver.maid.Infrastructures.SqlControl
                 for (var nColIndex = 1; nColIndex < ColumnCount; nColIndex++)
                 {
                     var cellText = GetCellValue(nRowIndex, nColIndex) ?? "";
-                    row[nColIndex - 1] = cellText;
+                    if (!cellText.Equals("NULL"))
+                        row[nColIndex - 1] = cellText;
                 }
 
                 datatable.Rows.Add(row);
@@ -132,35 +121,29 @@ namespace Sqlserver.maid.Infrastructures.SqlControl
 
         public long GetSelectedRow()
         {
-            return Function.Run(() => { return GetSelectedCell()?.RowIndex ?? -1; });
+            return GetSelectedCell()?.RowIndex ?? -1;
         }
 
         public int GetSelectedColumn()
         {
-            return Function.Run(() => { return GetSelectedCell()?.ColumnIndex ?? -1; });
+            return GetSelectedCell()?.ColumnIndex + 1 ?? -1;
         }
 
         public GridResultSelectedCell GetSelectedCell()
         {
-            return Function.Run(() =>
-            {
-                var selectedCells = GetSelectedCells();
+            var selectedCells = GetSelectedCells();
 
-                if (selectedCells.LongCount() > 0)
-                    return selectedCells.ElementAt(0);
+            if (selectedCells.LongCount() > 0)
+                return selectedCells.ElementAt(0);
 
-                return default;
-            });
+            return default;
         }
 
         public IEnumerable<GridResultSelectedCell> GetSelectedCells()
         {
-            return Function.Run(() =>
-            {
-                return _gridControl.SelectedCells
-                    .Cast<BlockOfCells>()
-                    .Select((Func<BlockOfCells, GridResultSelectedCell>)((item) => item));
-            });
+            return _gridControl.SelectedCells
+                .Cast<BlockOfCells>()
+                .Select((Func<BlockOfCells, GridResultSelectedCell>)((item) => item));
         }
 
         public void Dispose()

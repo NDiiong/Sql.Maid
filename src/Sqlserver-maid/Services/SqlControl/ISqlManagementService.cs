@@ -1,7 +1,7 @@
 ﻿using Microsoft.SqlServer.Management.UI.Grid;
 using System;
 
-namespace Sqlserver.maid.Infrastructures.SqlControl
+namespace Sqlserver.maid.Services.SqlControl
 {
     public interface ISqlManagementService
     {

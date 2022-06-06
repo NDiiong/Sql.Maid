@@ -1,6 +1,6 @@
 ﻿using Microsoft.SqlServer.Management.UI.Grid;
 
-namespace Sqlserver.maid.Infrastructures.SqlControl
+namespace Sqlserver.maid.Services.SqlControl
 {
     public class GridResultSelectedCell
     {

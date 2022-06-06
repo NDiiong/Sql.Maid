@@ -1,4 +1,4 @@
-﻿namespace Sqlserver.maid.Services
+﻿namespace Sqlserver.maid.Services.Runtime
 {
     public interface IClipboardService
     {

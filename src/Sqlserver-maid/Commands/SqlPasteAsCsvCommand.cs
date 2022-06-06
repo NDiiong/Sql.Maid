@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.Shell;
-using Sqlserver.maid.Extension;
-using Sqlserver.maid.Services;
+using Sqlserver.maid.Services.Extension;
+using Sqlserver.maid.Services.Runtime;
+using Sqlserver.maid.Services.SqlTextDocument;
 using System;
 using System.ComponentModel.Design;
 using System.Text.RegularExpressions;

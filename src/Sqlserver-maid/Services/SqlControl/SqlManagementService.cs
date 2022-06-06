@@ -1,11 +1,11 @@
 ﻿using Microsoft.SqlServer.Management.UI.Grid;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
-using Sqlserver.maid.Extension;
+using Sqlserver.maid.Services.Extension;
 using System;
 using System.Windows.Forms;
 
-namespace Sqlserver.maid.Infrastructures.SqlControl
+namespace Sqlserver.maid.Services.SqlControl
 {
     public class SqlManagementService : ISqlManagementService
     {

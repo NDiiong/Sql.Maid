@@ -2,7 +2,7 @@
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 
-namespace Sqlserver.maid.Services
+namespace Sqlserver.maid.Services.SqlTextDocument
 {
     public class TextDocumentService : ITextDocumentService
     {

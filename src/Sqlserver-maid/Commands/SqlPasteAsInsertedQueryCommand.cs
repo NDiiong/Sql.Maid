@@ -1,9 +1,11 @@
 ﻿using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
-using Sqlserver.maid.Extension;
-using Sqlserver.maid.Infrastructures;
 using Sqlserver.maid.Services;
+using Sqlserver.maid.Services.Extension;
+using Sqlserver.maid.Services.Runtime;
+using Sqlserver.maid.Services.SqlQuery;
+using Sqlserver.maid.Services.SqlTextDocument;
 using System;
 using System.ComponentModel.Design;
 using System.Linq;

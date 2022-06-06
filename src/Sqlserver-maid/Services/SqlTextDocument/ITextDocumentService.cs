@@ -1,6 +1,6 @@
 ﻿using EnvDTE;
 
-namespace Sqlserver.maid.Services
+namespace Sqlserver.maid.Services.SqlTextDocument
 {
     public interface ITextDocumentService
     {

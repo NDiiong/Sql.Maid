@@ -86,24 +86,36 @@
     <CopyVsixExtensionLocation>C:\Program Files %28x86%29\Microsoft SQL Server Management Studio 18\Common7\IDE\Extensions\sqlserver-maid</CopyVsixExtensionLocation>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Infrastructures\SqlControl\GridResultSelectedCell.cs" />
-    <Compile Include="Infrastructures\SqlControl\GridResultControl.cs" />
-    <Compile Include="Commands\SqlExportGridResultCommand.cs" />
+    <Compile Include="Commands\Grid\CommandBarControlBuilder.cs" />
+    <Compile Include="Commands\Grid\SqlGridResultCommand.cs" />
+    <Compile Include="Commands\Grid\SqlInsertScriptGridResultCommand.cs" />
+    <Compile Include="Commands\Grid\SqlSaveAsGridResultCommand.cs" />
     <Compile Include="Commands\SqlJoinLinesCommand.cs" />
     <Compile Include="Commands\SqlPasteAsInsertedHeaderQueryCommand.cs" />
     <Compile Include="Commands\SqlPasteAsInsertedQueryCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Infrastructures\Function.cs" />
-    <Compile Include="Infrastructures\ISqlQueryService.cs" />
-    <Compile Include="Infrastructures\SqlControl\ISqlManagementService.cs" />
-    <Compile Include="Infrastructures\SqlControl\SqlManagementService.cs" />
-    <Compile Include="Infrastructures\SqlQueryService.cs" />
-    <Compile Include="Extension\ObjectExtension.cs" />
-    <Compile Include="Services\IClipboardService.cs" />
-    <Compile Include="Services\ITextDocumentService.cs" />
+    <Compile Include="Services\Extension\ObjectExtension.cs" />
+    <Compile Include="Services\Extension\PackageExtension.cs" />
+    <Compile Include="Services\Extension\ServiceProviderExtension.cs" />
+    <Compile Include="Services\File\ExcelFileService.cs" />
+    <Compile Include="Services\File\FileServiceFactory.cs" />
+    <Compile Include="Services\File\IFileService.cs" />
+    <Compile Include="Services\File\JsonFileService.cs" />
+    <Compile Include="Services\Function.cs" />
     <Compile Include="Commands\SqlQueryTemplateCommand.cs" />
-    <Compile Include="Services\TextDocumentService.cs" />
-    <Compile Include="Services\ClipboardService.cs" />
+    <Compile Include="Services\Log\Logger.cs" />
+    <Compile Include="Services\Runtime\ClipboardService.cs" />
+    <Compile Include="Services\Runtime\IClipboardService.cs" />
+    <Compile Include="Services\SqlControl\GridResultControl.cs" />
+    <Compile Include="Services\SqlControl\GridResultSelectedCell.cs" />
+    <Compile Include="Services\SqlControl\ISqlManagementService.cs" />
+    <Compile Include="Services\SqlControl\SqlManagementService.cs" />
+    <Compile Include="Services\SqlPackage\SqlAsyncPackage.cs" />
+    <Compile Include="Services\SqlQuery\ISqlQueryService.cs" />
+    <Compile Include="Services\SqlQuery\SqlQueryService.cs" />
+    <Compile Include="Services\SqlTextDocument\ITextDocumentService.cs" />
+    <Compile Include="Services\SqlTextDocument\TextDocumentService.cs" />
+    <Compile Include="Services\SqlTextView\WpfTextViewHelper.cs" />
     <Compile Include="source.extension.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,7 +126,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SqlMaidAsyncPackage.vsct</DependentUpon>
     </Compile>
-    <Compile Include="Extension\PackageExtension.cs" />
     <Compile Include="Commands\SqlPasteAsCsvCommand.cs" />
     <Compile Include="SqlMaidAsyncPackage.cs" />
     <Compile Include="Options\GeneralOptionsPage.cs">
@@ -127,10 +138,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Settings\Settings.cs" />
-    <Compile Include="Extension\ServiceProviderExtension.cs" />
-    <Compile Include="Services\SqlAsyncPackage.cs" />
     <Compile Include="Services\UndoTransaction.cs" />
-    <Compile Include="Services\WpfTextViewHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -150,6 +158,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.95.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.95.4\lib\net40\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
@@ -161,6 +175,9 @@
     </Reference>
     <Reference Include="EnvDTE90, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.CSharp" />
@@ -271,6 +288,9 @@
       <HintPath>..\packages\Microsoft.VisualStudio.Validation.14.1.111\lib\net45\Microsoft.VisualStudio.Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -308,7 +328,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Infrastructures\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="dll\Microsoft.SqlServer.GridControl.dll" />
     <Content Include="Resources\Command1Package.ico" />

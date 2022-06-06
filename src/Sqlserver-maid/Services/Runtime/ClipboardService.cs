@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Sqlserver.maid.Services
+namespace Sqlserver.maid.Services.Runtime
 {
     internal class ClipboardService : IClipboardService
     {

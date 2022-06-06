@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Sqlserver.maid.Infrastructures
+namespace Sqlserver.maid.Services.SqlQuery
 {
     public class SqlQueryService : ISqlQueryService
     {

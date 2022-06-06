@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 
-namespace Sqlserver.maid.Services
+namespace Sqlserver.maid.Services.SqlTextView
 {
     internal static class WpfTextViewHelper
     {
