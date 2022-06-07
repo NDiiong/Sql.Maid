@@ -102,6 +102,9 @@
     <Compile Include="Services\File\IFileService.cs" />
     <Compile Include="Services\File\JsonFileService.cs" />
     <Compile Include="Services\Function.cs" />
+    <Compile Include="Services\IconConverter.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Services\Log\Logger.cs" />
     <Compile Include="Services\Runtime\ClipboardService.cs" />
     <Compile Include="Services\Runtime\IClipboardService.cs" />

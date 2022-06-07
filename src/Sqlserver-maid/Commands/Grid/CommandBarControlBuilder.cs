@@ -1,6 +1,10 @@
 ﻿#pragma warning disable IDE1006
 
 using Microsoft.VisualStudio.CommandBars;
+using Sqlserver.maid.Services.Extension;
+using stdole;
+using System.Drawing;
+using IconConverter = Sqlserver.maid.Services.IconConverter;
 
 namespace Sqlserver.maid.Commands.Grid
 {
@@ -22,6 +26,15 @@ namespace Sqlserver.maid.Commands.Grid
         {
             commandBarControl.TooltipText = tooltipText;
             return commandBarControl;
+        }
+    }
+
+    public static class CommandBarButtonBuilder
+    {
+        public static CommandBarButton AddIcon(this CommandBarButton commandBarButton, Icon icon)
+        {
+            commandBarButton.Picture = IconConverter.GetPictureDispFromImage(icon.ToBitmap()).As<StdPicture>();
+            return commandBarButton;
         }
     }
 }
