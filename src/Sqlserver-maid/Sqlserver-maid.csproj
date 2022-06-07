@@ -70,10 +70,10 @@
     <DefineConstants>TRACE;DEBUG;SSMS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CopyVsixExtensionFiles>False</CopyVsixExtensionFiles>
+    <CopyVsixExtensionFiles>True</CopyVsixExtensionFiles>
     <CopyVsixExtensionLocation>C:\Program Files %28x86%29\Microsoft SQL Server Management Studio 18\Common7\IDE\Extensions\sqlserver-maid</CopyVsixExtensionLocation>
-    <CreateVsixContainer>False</CreateVsixContainer>
-    <DeployExtension>False</DeployExtension>
+    <CreateVsixContainer>True</CreateVsixContainer>
+    <DeployExtension>True</DeployExtension>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
