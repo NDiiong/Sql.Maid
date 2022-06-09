@@ -25,7 +25,7 @@ namespace Sqlserver.maid.Commands.Grid
             var sqlResultsGridTabContext = SqlResultGridContext.Controls
                 .Add(MsoControlType.msoControlPopup, Type.Missing, Type.Missing, Type.Missing, true)
                 .Visible(true)
-                .Caption("Save Results As Special")
+                .Caption("Save Result Special As...")
                 .TooltipText("Sqlserver Maid - Tools for SQL Server Management Studio")
                 .As<CommandBarPopup>();
 
