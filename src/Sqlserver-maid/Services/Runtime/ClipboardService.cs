@@ -5,6 +5,17 @@ namespace Sqlserver.maid.Services.Runtime
 {
     internal class ClipboardService : IClipboardService
     {
+        public void Set(string value)
+        {
+            try
+            {
+                Clipboard.SetText(value, TextDataFormat.UnicodeText);
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         public string GetFromClipboard()
         {
             try
