@@ -4,6 +4,7 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
 using Microsoft.VisualStudio.Shell;
+using Sqlserver.maid.Services;
 using Sqlserver.maid.Services.Extension;
 using Sqlserver.maid.Services.File;
 using Sqlserver.maid.Services.Runtime;
@@ -47,21 +48,24 @@ namespace Sqlserver.maid.Commands.Grid
 
         private static void SqlCopyAsJsonGridResultEventHandler(IServiceProvider serviceProvider)
         {
-            var currentGridControl = SqlManagementService.GetCurrentGridControl(serviceProvider);
-            if (currentGridControl != null)
+            Function.Run(() =>
             {
-                using (var gridResultControl = new GridResultControl(currentGridControl))
+                var currentGridControl = SqlManagementService.GetCurrentGridControl(serviceProvider);
+                if (currentGridControl != null)
                 {
-                    var fileservice = FileServiceFactory.GetService(".json");
-                    if (fileservice != null)
+                    using (var gridResultControl = new GridResultControl(currentGridControl))
                     {
-                        var json = fileservice.AsJson(gridResultControl.AsDatatable());
+                        var fileservice = FileServiceFactory.GetService(".json");
+                        if (fileservice != null)
+                        {
+                            var json = fileservice.AsJson(gridResultControl.AsDatatable());
 
-                        if (!string.IsNullOrEmpty(json))
-                            _clipboardService.Set(json);
+                            if (!string.IsNullOrEmpty(json))
+                                _clipboardService.Set(json);
+                        }
                     }
                 }
-            }
+            });
         }
     }
 }
