@@ -8,7 +8,7 @@ using IconConverter = Sqlserver.maid.Services.IconConverter;
 
 namespace Sqlserver.maid.Commands.Grid
 {
-    public static class CommandBarControlBuilder
+    internal static class CommandBarControlBuilder
     {
         public static CommandBarControl Caption(this CommandBarControl commandBarControl, string caption)
         {
@@ -29,7 +29,7 @@ namespace Sqlserver.maid.Commands.Grid
         }
     }
 
-    public static class CommandBarButtonBuilder
+    internal static class CommandBarButtonBuilder
     {
         public static CommandBarButton AddIcon(this CommandBarButton commandBarButton, string filename)
         {

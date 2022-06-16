@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Sqlserver.maid.Commands;
+using Sqlserver.maid.Commands.Excute;
 using Sqlserver.maid.Commands.Grid;
 using Sqlserver.maid.Services.SqlPackage;
 using System;
@@ -18,6 +19,9 @@ namespace Sqlserver.maid
 
         protected override async Task InitializeAsync()
         {
+            //Execute
+            await QueryHistoryCommand.InitializeAsync(this).ConfigureAwait(false);
+
             //Editor
             await SqlJoinLinesCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlPasteAsCsvCommand.InitializeAsync(this).ConfigureAwait(false);

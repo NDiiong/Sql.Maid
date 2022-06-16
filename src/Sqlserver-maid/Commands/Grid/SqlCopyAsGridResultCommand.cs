@@ -14,7 +14,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Sqlserver.maid.Commands.Grid
 {
-    public sealed class SqlCopyAsGridResultCommand : SqlGridResultCommand
+    internal sealed class SqlCopyAsGridResultCommand : SqlGridResultCommand
     {
         private static readonly IClipboardService _clipboardService;
 

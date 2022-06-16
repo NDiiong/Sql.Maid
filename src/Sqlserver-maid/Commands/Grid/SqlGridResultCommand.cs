@@ -8,7 +8,7 @@ using Sqlserver.maid.Services.SqlControl;
 
 namespace Sqlserver.maid.Commands.Grid
 {
-    public abstract class SqlGridResultCommand
+    internal abstract class SqlGridResultCommand
     {
         private const string SQL_RESULT_GRID_CONTEXT_NAME = "SQL Results Grid Tab Context";
         protected static CommandBar SqlResultGridContext { get; }

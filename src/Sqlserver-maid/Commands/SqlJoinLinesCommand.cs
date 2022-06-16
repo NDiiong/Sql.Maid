@@ -12,7 +12,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Sqlserver.maid.Commands
 {
-    public sealed class SqlJoinLinesCommand
+    internal sealed class SqlJoinLinesCommand
     {
         private const string _pattern = @"[ \t]*\r?\n[ \t]*";
         private static readonly ITextDocumentService _textDocumentService;

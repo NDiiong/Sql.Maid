@@ -86,6 +86,7 @@
     <CopyVsixExtensionLocation>C:\Program Files %28x86%29\Microsoft SQL Server Management Studio 18\Common7\IDE\Extensions\sqlserver-maid</CopyVsixExtensionLocation>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\Excute\QueryHistoryCommand.cs" />
     <Compile Include="Commands\Grid\CommandBarControlBuilder.cs" />
     <Compile Include="Commands\Grid\SqlCopyAsGridResultCommand.cs" />
     <Compile Include="Commands\Grid\SqlGridResultCommand.cs" />
