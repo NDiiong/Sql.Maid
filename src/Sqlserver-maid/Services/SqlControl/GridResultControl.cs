@@ -42,6 +42,11 @@ namespace Sqlserver.maid.Services.SqlControl
             return columnHeaders;
         }
 
+        public DataTable GetSchemaTableColumnHeaders()
+        {
+            return _gridControl.GridStorage.GetNonPublicField("m_schemaTable").As<DataTable>();
+        }
+
         public IEnumerable<(Type, string)> GetDetailColumnHeaders()
         {
             var result = new List<(Type, string)>();
