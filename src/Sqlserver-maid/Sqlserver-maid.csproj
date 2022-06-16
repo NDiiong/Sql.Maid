@@ -319,6 +319,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="3rd\Microsoft.SqlServer.GridControl.dll" />
+    <Content Include="Assets\json.ico">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\ms.excel.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
