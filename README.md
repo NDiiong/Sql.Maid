@@ -5,7 +5,7 @@ Sqlserver maid is a productivity extension for SQL Server Management Studio 1.x
 # Documentation
 
 Coming soon
-# Installs
+# How to install?
 
 Coming soon
 # Downloads/builds
