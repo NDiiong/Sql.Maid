@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
-using System.Reflection;
 
 namespace Sqlserver.maid.Services.SqlControl
 {
@@ -24,14 +24,6 @@ namespace Sqlserver.maid.Services.SqlControl
             _gridControl = gridControl ?? throw new ArgumentNullException(nameof(gridControl));
             ColumnCount = gridControl.ColumnsNumber;
             RowCount = gridControl.GridStorage?.NumRows() ?? throw new ArgumentNullException(nameof(gridControl.GridStorage));
-
-            var schematable = Schematable();
-            Console.WriteLine();
-        }
-
-        public DataTable Schematable()
-        {
-            return _gridControl.GridStorage.GetNonPublicField("m_schemaTable").As<DataTable>();
         }
 
         public string GetCellValue(long nRowIndex, int nColIndex)
@@ -48,6 +40,18 @@ namespace Sqlserver.maid.Services.SqlControl
             }
 
             return columnHeaders;
+        }
+
+        public IEnumerable<(Type, string)> GetDetailColumnHeaders()
+        {
+            var result = new List<(Type, string)>();
+            var schema = _gridControl.GridStorage.GetNonPublicField("m_schemaTable").As<DataTable>();
+            for (var colIndex = 1; colIndex < ColumnCount; colIndex++)
+            {
+                result.Add((schema.Rows[colIndex - 1][12].As<Type>(), GetColumnHeader(colIndex)));
+            }
+
+            return result;
         }
 
         public string GetColumnHeader(int nColIndex)
@@ -81,11 +85,10 @@ namespace Sqlserver.maid.Services.SqlControl
         public DataTable AsDatatable()
         {
             var datatable = new DataTable();
-
-            var headers = GetColumnHeaders();
-            foreach (var item in headers)
+            var headers = GetDetailColumnHeaders();
+            foreach (var (type, name) in headers)
             {
-                datatable.Columns.Add(item);
+                datatable.Columns.Add(name, type);
             }
 
             for (var nRowIndex = 0L; nRowIndex < RowCount; nRowIndex += 1L)
@@ -94,8 +97,16 @@ namespace Sqlserver.maid.Services.SqlControl
                 for (var nColIndex = 1; nColIndex < ColumnCount; nColIndex++)
                 {
                     var cellText = GetCellValue(nRowIndex, nColIndex) ?? "";
-                    if (!cellText.Equals("NULL"))
-                        row[nColIndex - 1] = cellText;
+
+                    if (!cellText.Equals("NULL", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var column = datatable.Columns[nColIndex - 1];
+                        if (column.DataType == typeof(bool))
+                            cellText = cellText == "0" ? "False" : "True";
+
+                        var typedValue = Convert.ChangeType(cellText, column.DataType, CultureInfo.InvariantCulture);
+                        row[nColIndex - 1] = typedValue;
+                    }
                 }
 
                 datatable.Rows.Add(row);
