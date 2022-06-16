@@ -22,7 +22,7 @@ namespace Sqlserver.maid.Commands.Grid
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             var dte = Package.GetGlobalService(typeof(DTE)) as DTE2;
 
-            var sqlResultsGridTabContext = SqlResultGridContext.Controls
+            var saveResultSpecialAsCommandBar = SqlResultGridContext.Controls
                 .Add(MsoControlType.msoControlPopup, Type.Missing, Type.Missing, Type.Missing, true)
                 .Visible(true)
                 .Caption("Save Result Special As...")
@@ -30,7 +30,7 @@ namespace Sqlserver.maid.Commands.Grid
                 .As<CommandBarPopup>();
 
             //Save Result As Json
-            sqlResultsGridTabContext.Controls
+            saveResultSpecialAsCommandBar.Controls
                 .Add(MsoControlType.msoControlButton, 1, Type.Missing, Type.Missing, false)
                 .Visible(true)
                 .Caption("Save As Json")
@@ -40,7 +40,7 @@ namespace Sqlserver.maid.Commands.Grid
                 .Click += (CommandBarButton _, ref bool __) => SqlSaveAsJsonGridResultEventHandler(package);
 
             //Save Result As Excel
-            sqlResultsGridTabContext.Controls
+            saveResultSpecialAsCommandBar.Controls
                 .Add(MsoControlType.msoControlButton, 2, Type.Missing, Type.Missing, false)
                 .Visible(true)
                 .Caption("Save As Excel")

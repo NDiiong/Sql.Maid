@@ -28,7 +28,7 @@ namespace Sqlserver.maid.Commands.Grid
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             var dte = Package.GetGlobalService(typeof(DTE)) as DTE2;
 
-            var sqlResultsGridTabContext = SqlResultGridContext.Controls
+            var copyAsCommandBar = SqlResultGridContext.Controls
                 .Add(MsoControlType.msoControlPopup, Type.Missing, Type.Missing, Type.Missing, true)
                 .Visible(true)
                 .Caption("Copy As...")
@@ -36,7 +36,7 @@ namespace Sqlserver.maid.Commands.Grid
                 .As<CommandBarPopup>();
 
             //Save Result As Json
-            sqlResultsGridTabContext.Controls
+            copyAsCommandBar.Controls
                 .Add(MsoControlType.msoControlButton, 1, Type.Missing, Type.Missing, false)
                 .Visible(true)
                 .Caption("Copy As Json")
