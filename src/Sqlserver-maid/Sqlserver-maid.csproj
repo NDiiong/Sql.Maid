@@ -87,7 +87,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Commands\Excute\QueryHistoryCommand.cs" />
-    <Compile Include="Commands\Grid\CommandBarControlBuilder.cs" />
+    <Compile Include="Services\SqlControl\CommandBarControlBuilder.cs" />
     <Compile Include="Commands\Grid\SqlCopyAsGridResultCommand.cs" />
     <Compile Include="Commands\Grid\SqlGridResultCommand.cs" />
     <Compile Include="Commands\Grid\SqlInsertScriptGridResultCommand.cs" />

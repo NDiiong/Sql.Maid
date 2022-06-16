@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using System;
 
-namespace Sqlserver.maid.Services.SqlTextView
+namespace Sqlserver.maid.Services.SqlServiceProvider
 {
     internal class SqlServiceProvider : ISqlServiceProvider
     {

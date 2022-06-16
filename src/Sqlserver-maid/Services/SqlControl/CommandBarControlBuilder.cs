@@ -4,9 +4,8 @@ using Microsoft.VisualStudio.CommandBars;
 using Sqlserver.maid.Services.Extension;
 using stdole;
 using System.Drawing;
-using IconConverter = Sqlserver.maid.Services.IconConverter;
 
-namespace Sqlserver.maid.Commands.Grid
+namespace Sqlserver.maid.Services.SqlControl
 {
     internal static class CommandBarControlBuilder
     {
