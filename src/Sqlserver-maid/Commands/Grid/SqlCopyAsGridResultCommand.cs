@@ -43,10 +43,10 @@ namespace Sqlserver.maid.Commands.Grid
                 .TooltipText("Copy As Json based on the Grid Result.")
                 .As<CommandBarButton>()
                 //.AddIcon(VSPackage.json_file)
-                .Click += (CommandBarButton _, ref bool __) => SqlCopyAsJsonGridResultEventHandler(package);
+                .Click += (CommandBarButton _, ref bool __) => SqlCopyAsJsonGridResultEventHandler(package, dte);
         }
 
-        private static void SqlCopyAsJsonGridResultEventHandler(IServiceProvider serviceProvider)
+        private static void SqlCopyAsJsonGridResultEventHandler(IServiceProvider serviceProvider, DTE2 dte)
         {
             Function.Run(() =>
             {
@@ -58,7 +58,10 @@ namespace Sqlserver.maid.Commands.Grid
                         var json = FileServiceBase.JsonService.AsJson(gridResultControl.AsDatatable());
 
                         if (!string.IsNullOrEmpty(json))
+                        {
                             _clipboardService.Set(json);
+                            dte.StatusBar.Text = "Copied";
+                        }
                     }
                 }
             });

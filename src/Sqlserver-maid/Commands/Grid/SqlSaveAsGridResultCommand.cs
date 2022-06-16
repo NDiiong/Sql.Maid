@@ -37,7 +37,7 @@ namespace Sqlserver.maid.Commands.Grid
                 .TooltipText("Creates a JSON File based on the Grid Result.")
                 .As<CommandBarButton>()
                 .AddIcon("Assets/json.ico")
-                .Click += (CommandBarButton _, ref bool __) => SqlSaveAsJsonGridResultEventHandler(package);
+                .Click += (CommandBarButton _, ref bool __) => SqlSaveAsJsonGridResultEventHandler(package, dte);
 
             //Save Result As Excel
             saveResultSpecialAsCommandBar.Controls
@@ -47,10 +47,10 @@ namespace Sqlserver.maid.Commands.Grid
                 .TooltipText("Creates a Excel File based on the Grid Result.")
                 .As<CommandBarButton>()
                 .AddIcon("Assets/ms.excel.ico")
-                .Click += (CommandBarButton _, ref bool __) => SqlSaveAsExcelGridResultEventHandler(package);
+                .Click += (CommandBarButton _, ref bool __) => SqlSaveAsExcelGridResultEventHandler(package, dte);
         }
 
-        private static void SqlSaveAsExcelGridResultEventHandler(IServiceProvider serviceProvider)
+        private static void SqlSaveAsExcelGridResultEventHandler(IServiceProvider serviceProvider, DTE2 dte)
         {
             Function.Run(() =>
             {
@@ -61,11 +61,11 @@ namespace Sqlserver.maid.Commands.Grid
                     Filter = "Excel (*.xlsx)|*.xlsx"
                 };
 
-                FileHandler(serviceProvider, saveDialog);
+                FileHandler(serviceProvider, saveDialog, dte);
             });
         }
 
-        private static void SqlSaveAsJsonGridResultEventHandler(IServiceProvider serviceProvider)
+        private static void SqlSaveAsJsonGridResultEventHandler(IServiceProvider serviceProvider, DTE2 dte)
         {
             Function.Run(() =>
             {
@@ -76,11 +76,11 @@ namespace Sqlserver.maid.Commands.Grid
                     Filter = "Json (*.json)|*.json"
                 };
 
-                FileHandler(serviceProvider, saveDialog);
+                FileHandler(serviceProvider, saveDialog, dte);
             });
         }
 
-        private static void FileHandler(IServiceProvider serviceProvider, SaveFileDialog saveDialog)
+        private static void FileHandler(IServiceProvider serviceProvider, SaveFileDialog saveDialog, DTE2 dte)
         {
             var diaglogResult = saveDialog.ShowDialog();
             if (diaglogResult != DialogResult.Cancel)
@@ -96,6 +96,7 @@ namespace Sqlserver.maid.Commands.Grid
                         using (var gridResultControl = new GridResultControl(currentGridControl))
                         {
                             fileservice.WriteFile(saveDialog.FileName, gridResultControl.AsDatatable());
+                            dte.StatusBar.Text = "Successed";
                         }
                     }
                 }
