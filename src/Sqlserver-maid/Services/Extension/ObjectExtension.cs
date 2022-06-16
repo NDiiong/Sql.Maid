@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace Sqlserver.maid.Services.Extension
 {
@@ -61,6 +62,13 @@ namespace Sqlserver.maid.Services.Extension
                 return Convert.ChangeType(@value, conversionType);
 
             return value;
+        }
+
+        public static object GetNonPublicField(this object @object, string propertyName)
+        {
+            var field = @object.GetType()
+                .GetField(propertyName, BindingFlags.NonPublic | BindingFlags.Instance);
+            return field.GetValue(@object);
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.SqlServer.Management.UI.Grid;
+using Sqlserver.maid.Services.Extension;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 
 namespace Sqlserver.maid.Services.SqlControl
 {
@@ -22,6 +24,14 @@ namespace Sqlserver.maid.Services.SqlControl
             _gridControl = gridControl ?? throw new ArgumentNullException(nameof(gridControl));
             ColumnCount = gridControl.ColumnsNumber;
             RowCount = gridControl.GridStorage?.NumRows() ?? throw new ArgumentNullException(nameof(gridControl.GridStorage));
+
+            var schematable = Schematable();
+            Console.WriteLine();
+        }
+
+        public DataTable Schematable()
+        {
+            return _gridControl.GridStorage.GetNonPublicField("m_schemaTable").As<DataTable>();
         }
 
         public string GetCellValue(long nRowIndex, int nColIndex)
