@@ -1,8 +1,11 @@
 # Sqlserver Maid
 
-SQL Server Management Studio (SSMS) extension for...
+Sqlserver maid is a productivity extension for SQL Server Management Studio 1.x
 
 # Documentation
+
+Coming soon
+# How to install?
 
 Coming soon
 # Downloads/builds
