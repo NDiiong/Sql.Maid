@@ -106,7 +106,7 @@
     <Compile Include="Services\IconConverter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Services\Log\Logger.cs" />
+    <Compile Include="Services\Loging\Logger.cs" />
     <Compile Include="Services\Runtime\ClipboardService.cs" />
     <Compile Include="Services\Runtime\IClipboardService.cs" />
     <Compile Include="Services\SqlControl\GridResultControl.cs" />

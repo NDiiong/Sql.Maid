@@ -1,4 +1,4 @@
-﻿using Sqlserver.maid.Services.Log;
+﻿using Sqlserver.maid.Services.Loging;
 using System;
 using System.Diagnostics;
 using System.IO;
