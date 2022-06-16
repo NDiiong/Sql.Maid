@@ -15,6 +15,7 @@ namespace Sqlserver.maid.Services.File
         private readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            NullValueHandling = NullValueHandling.Ignore
         };
 
         public string AsJson(DataTable datatable)
