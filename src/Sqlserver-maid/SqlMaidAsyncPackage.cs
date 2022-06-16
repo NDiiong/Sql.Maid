@@ -19,16 +19,10 @@ namespace Sqlserver.maid
 
         protected override async Task InitializeAsync()
         {
-            //Execute
             await QueryHistoryCommand.InitializeAsync(this).ConfigureAwait(false);
-
-            //Editor
             await SqlJoinLinesCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlPasteAsCsvCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlPasteAsInsertedQueryCommand.InitializeAsync(this).ConfigureAwait(false);
-            await SqlPasteAsInsertedHeaderQueryCommand.InitializeAsync(this).ConfigureAwait(false);
-
-            //GridResult
             await SqlCopyAsGridResultCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlSaveAsGridResultCommand.InitializeAsync(this).ConfigureAwait(false);
             //await SqlInsertScriptGridResultCommand.InitializeAsync(this).ConfigureAwait(false);
