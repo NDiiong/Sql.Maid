@@ -31,6 +31,12 @@ namespace Sqlserver.maid.Commands.Grid
 
     public static class CommandBarButtonBuilder
     {
+        public static CommandBarButton AddIcon(this CommandBarButton commandBarButton, string filename)
+        {
+            commandBarButton.Style = MsoButtonStyle.msoButtonIconAndCaption;
+            return AddIcon(commandBarButton, new Icon(filename));
+        }
+
         public static CommandBarButton AddIcon(this CommandBarButton commandBarButton, Icon icon)
         {
             commandBarButton.Picture = IconConverter.GetPictureDispFromImage(icon.ToBitmap()).As<StdPicture>();

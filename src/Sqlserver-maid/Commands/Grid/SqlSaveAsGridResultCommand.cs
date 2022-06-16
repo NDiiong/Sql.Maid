@@ -36,7 +36,8 @@ namespace Sqlserver.maid.Commands.Grid
                 .Caption("Save As Json")
                 .TooltipText("Creates a JSON File based on the Grid Result.")
                 .As<CommandBarButton>()
-                //.AddIcon(VSPackage.json_file)
+                .AddIcon("Assets/ms.excel.ico")
+
                 .Click += (CommandBarButton _, ref bool __) => SqlSaveAsJsonGridResultEventHandler(package);
 
             //Save Result As Excel
