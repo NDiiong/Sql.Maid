@@ -98,7 +98,6 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Services\Extension\ObjectExtension.cs" />
     <Compile Include="Services\Extension\PackageExtension.cs" />
-    <Compile Include="Services\Extension\ServiceProviderExtension.cs" />
     <Compile Include="Services\File\ExcelFileService.cs" />
     <Compile Include="Services\File\FileServiceBase.cs" />
     <Compile Include="Services\File\HtmlService.cs" />
