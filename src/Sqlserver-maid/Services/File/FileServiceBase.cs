@@ -1,7 +1,9 @@
 ﻿namespace Sqlserver.maid.Services.File
 {
-    public static class FileServiceFactory
+    public class FileServiceBase
     {
+        public static IJsonService JsonService => new JsonFileService();
+
         public static IFileService GetService(string extension)
         {
             switch (extension)

@@ -86,7 +86,7 @@ namespace Sqlserver.maid.Commands.Grid
             if (diaglogResult != DialogResult.Cancel)
             {
                 var extension = Path.GetExtension(saveDialog.FileName).ToLower();
-                var fileservice = FileServiceFactory.GetService(extension);
+                var fileservice = FileServiceBase.GetService(extension);
 
                 if (fileservice != null)
                 {

@@ -5,7 +5,12 @@ using Formatting = Newtonsoft.Json.Formatting;
 
 namespace Sqlserver.maid.Services.File
 {
-    public class JsonFileService : IFileService
+    public interface IJsonService : IFileService
+    {
+        string AsJson(DataTable datatable);
+    }
+
+    public class JsonFileService : IFileService, IJsonService
     {
         private readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
         {

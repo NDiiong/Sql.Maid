@@ -55,14 +55,10 @@ namespace Sqlserver.maid.Commands.Grid
                 {
                     using (var gridResultControl = new GridResultControl(currentGridControl))
                     {
-                        var fileservice = FileServiceFactory.GetService(".json");
-                        if (fileservice != null)
-                        {
-                            var json = fileservice.AsJson(gridResultControl.AsDatatable());
+                        var json = FileServiceBase.JsonService.AsJson(gridResultControl.AsDatatable());
 
-                            if (!string.IsNullOrEmpty(json))
-                                _clipboardService.Set(json);
-                        }
+                        if (!string.IsNullOrEmpty(json))
+                            _clipboardService.Set(json);
                     }
                 }
             });
