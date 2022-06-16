@@ -116,9 +116,10 @@
     <Compile Include="Services\SqlPackage\SqlAsyncPackage.cs" />
     <Compile Include="Services\SqlQuery\ISqlQueryService.cs" />
     <Compile Include="Services\SqlQuery\SqlQueryService.cs" />
+    <Compile Include="Services\SqlServiceProvider\ISqlServiceProvider.cs" />
     <Compile Include="Services\SqlTextDocument\ITextDocumentService.cs" />
     <Compile Include="Services\SqlTextDocument\TextDocumentService.cs" />
-    <Compile Include="Services\SqlTextView\WpfTextViewHelper.cs" />
+    <Compile Include="Services\SqlServiceProvider\SqlServiceProvider.cs" />
     <Compile Include="source.extension.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
