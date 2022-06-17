@@ -1,10 +1,10 @@
-﻿using EnvDTE;
-using EnvDTE80;
+﻿using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
-using Sqlserver.maid.Services.Extension;
+using System;
 using System.ComponentModel.Design;
+using System.IO;
 using Task = System.Threading.Tasks.Task;
 
 namespace Sqlserver.maid.Services.SqlPackage
@@ -37,8 +37,8 @@ namespace Sqlserver.maid.Services.SqlPackage
         protected override void Initialize()
         {
             base.Initialize();
-            Application = GetGlobalService(typeof(DTE)) as DTE2;
-            MenuCommand = GetService(typeof(IMenuCommandService)).As<IMenuCommandService>();
+            //Application = GetGlobalService(typeof(DTE)) as DTE2;
+            //MenuCommand = (IMenuCommandService)GetService(typeof(IMenuCommandService));
             ThreadHelper.JoinableTaskFactory.Run(InitializeAsync);
         }
 
@@ -52,6 +52,12 @@ namespace Sqlserver.maid.Services.SqlPackage
             }
             catch
             { }
+        }
+
+        public string GetExtensionInstallationDirectory()
+        {
+            var uri = new Uri(GetType().Assembly.CodeBase, UriKind.Absolute);
+            return Path.GetDirectoryName(uri.LocalPath);
         }
     }
 }

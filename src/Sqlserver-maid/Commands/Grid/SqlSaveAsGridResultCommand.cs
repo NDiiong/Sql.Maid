@@ -8,6 +8,7 @@ using Sqlserver.maid.Services;
 using Sqlserver.maid.Services.Extension;
 using Sqlserver.maid.Services.File;
 using Sqlserver.maid.Services.SqlControl;
+using Sqlserver.maid.Services.SqlPackage;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -17,11 +18,11 @@ namespace Sqlserver.maid.Commands.Grid
 {
     internal sealed class SqlSaveAsGridResultCommand : SqlGridResultCommand
     {
-        public static async Task InitializeAsync(Package package)
+        public static async Task InitializeAsync(SqlAsyncPackage package)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             var dte = Package.GetGlobalService(typeof(DTE)) as DTE2;
-
+            var localPath = package.GetExtensionInstallationDirectory();
             var saveResultSpecialAsCommandBar = SqlResultGridContext.Controls
                 .Add(MsoControlType.msoControlPopup, Type.Missing, Type.Missing, Type.Missing, true)
                 .Visible(true)
@@ -36,7 +37,7 @@ namespace Sqlserver.maid.Commands.Grid
                 .Caption("Save As Json")
                 .TooltipText("Creates a JSON File based on the Grid Result.")
                 .As<CommandBarButton>()
-                .AddIcon("Assets/json.ico")
+                .AddIcon($"{localPath}/Assets/json.ico")
                 .Click += (CommandBarButton _, ref bool __) => SqlSaveAsJsonGridResultEventHandler(package, dte);
 
             //Save Result As Excel
@@ -46,7 +47,7 @@ namespace Sqlserver.maid.Commands.Grid
                 .Caption("Save As Excel")
                 .TooltipText("Creates a Excel File based on the Grid Result.")
                 .As<CommandBarButton>()
-                .AddIcon("Assets/ms.excel.ico")
+                .AddIcon($"{localPath}/Assets/ms.excel.ico")
                 .Click += (CommandBarButton _, ref bool __) => SqlSaveAsExcelGridResultEventHandler(package, dte);
         }
 
