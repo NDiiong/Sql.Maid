@@ -58,7 +58,8 @@ namespace Sqlserver.maid.Commands.Grid
                 {
                     FileName = "",
                     Title = "Save Results As Excel",
-                    Filter = "Excel (*.xlsx)|*.xlsx"
+                    Filter = "Excel (*.xlsx)|*.xlsx",
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                 };
 
                 FileHandler(serviceProvider, saveDialog, dte);
@@ -73,7 +74,8 @@ namespace Sqlserver.maid.Commands.Grid
                 {
                     FileName = "",
                     Title = "Save Results As Json",
-                    Filter = "Json (*.json)|*.json"
+                    Filter = "Json (*.json)|*.json",
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                 };
 
                 FileHandler(serviceProvider, saveDialog, dte);

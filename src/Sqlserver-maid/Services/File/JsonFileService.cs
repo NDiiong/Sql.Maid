@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
 using System.Data;
 using Formatting = Newtonsoft.Json.Formatting;
 
@@ -26,6 +27,9 @@ namespace Sqlserver.maid.Services.File
         public void WriteFile(string path, DataTable datatable)
         {
             var json = JsonConvert.SerializeObject(datatable, Formatting.Indented, _jsonSerializerSettings);
+            
+            if (!path.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                path += ".json";
             System.IO.File.WriteAllText(path, json);
         }
     }

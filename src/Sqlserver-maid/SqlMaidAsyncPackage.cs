@@ -19,6 +19,7 @@ namespace Sqlserver.maid
 
         protected override async Task InitializeAsync()
         {
+            await WindowEventLogging.InitializeAsync(this).ConfigureAwait(false);
             await QueryHistoryCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlJoinLinesCommand.InitializeAsync(this).ConfigureAwait(false);
             await SqlPasteAsCsvCommand.InitializeAsync(this).ConfigureAwait(false);
