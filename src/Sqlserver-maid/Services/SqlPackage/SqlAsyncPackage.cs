@@ -1,6 +1,10 @@
-﻿using Microsoft.VisualStudio;
+﻿using EnvDTE;
+using EnvDTE80;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
+using Sqlserver.maid.Services.Extension;
+using System.ComponentModel.Design;
 using Task = System.Threading.Tasks.Task;
 
 namespace Sqlserver.maid.Services.SqlPackage
@@ -12,6 +16,9 @@ namespace Sqlserver.maid.Services.SqlPackage
     {
         private readonly string _packageGuidString;
 
+        public DTE2 Application { get; private set; }
+        public IMenuCommandService MenuCommand { get; private set; }
+
         public SqlAsyncPackage(string packageGuidString)
         {
             _packageGuidString = packageGuidString;
@@ -22,7 +29,6 @@ namespace Sqlserver.maid.Services.SqlPackage
 #if !DEBUG
             SetSkipLoading();
 #endif
-
             return base.QueryClose(out canClose);
         }
 
@@ -31,7 +37,8 @@ namespace Sqlserver.maid.Services.SqlPackage
         protected override void Initialize()
         {
             base.Initialize();
-
+            Application = GetGlobalService(typeof(DTE)) as DTE2;
+            MenuCommand = GetService(typeof(IMenuCommandService)).As<IMenuCommandService>();
             ThreadHelper.JoinableTaskFactory.Run(InitializeAsync);
         }
 
@@ -39,9 +46,7 @@ namespace Sqlserver.maid.Services.SqlPackage
         {
             try
             {
-                RegistryKey registryKey = UserRegistryRoot.CreateSubKey(
-                    string.Format("Packages\\{{{0}}}", _packageGuidString));
-
+                var registryKey = UserRegistryRoot.CreateSubKey(string.Format("Packages\\{{{0}}}", _packageGuidString));
                 registryKey.SetValue("SkipLoading", 1, RegistryValueKind.DWord);
                 registryKey.Close();
             }
