@@ -16,6 +16,7 @@ namespace Sqlserver.maid.Commands.Excute
     {
         private static readonly string _location;
         private static readonly ConcurrentQueue<QueryItem> _itemsQueue = new ConcurrentQueue<QueryItem>();
+        public static CommandEvents QueryExecuteEvent { get; private set; }
 
         static QueryHistoryCommand()
         {
@@ -31,9 +32,9 @@ namespace Sqlserver.maid.Commands.Excute
             var dte = Package.GetGlobalService(typeof(DTE)) as DTE2;
 
             var command = dte.Commands.Item("Query.Execute");
-            var commandEvents = dte.Events.get_CommandEvents(command.Guid, command.ID);
-            commandEvents.BeforeExecute += (string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault) => BeforeExecute(dte);
-            commandEvents.AfterExecute += CommandEvents_AfterExecute;
+            QueryExecuteEvent = dte.Events.get_CommandEvents(command.Guid, command.ID);
+            QueryExecuteEvent.BeforeExecute += (string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault) => BeforeExecute(dte);
+            QueryExecuteEvent.AfterExecute += CommandEvents_AfterExecute;
         }
 
         private static void CommandEvents_AfterExecute(string Guid, int ID, object CustomIn, object CustomOut)
@@ -63,7 +64,7 @@ namespace Sqlserver.maid.Commands.Excute
                 while (_itemsQueue.TryDequeue(out var item))
                 {
                     var path = Path.Combine(_location, item.ExecutionDate.ToString("dd.MM.yyyy.hh.mm.ss.fff") + Path.GetRandomFileName());
-                    File.AppendAllText(path, $"{item.ExecutionDate}" + Environment.NewLine + item.Query);
+                    File.AppendAllText(path + ".txt", $"{item.ExecutionDate}" + Environment.NewLine + item.Query);
                 }
             }
         }
