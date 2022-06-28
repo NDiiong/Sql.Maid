@@ -2,9 +2,9 @@
 using Sqlserver.maid.Services.Extension;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
 
 namespace Sqlserver.maid.Services.SqlControl
@@ -109,7 +109,10 @@ namespace Sqlserver.maid.Services.SqlControl
                         if (column.DataType == typeof(bool))
                             cellText = cellText == "0" ? "False" : "True";
 
-                        var typedValue = Convert.ChangeType(cellText, column.DataType, CultureInfo.InvariantCulture);
+                        var typedValue = TypeDescriptor
+                            .GetConverter(column.DataType)
+                            .ConvertFromInvariantString(cellText);
+
                         row[nColIndex - 1] = typedValue;
                     }
                 }
