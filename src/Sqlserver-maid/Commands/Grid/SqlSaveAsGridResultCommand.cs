@@ -57,9 +57,10 @@ namespace Sqlserver.maid.Commands.Grid
             {
                 var saveDialog = new SaveFileDialog
                 {
-                    FileName = "",
+                    FileName = Path.GetTempFileName(),
                     Title = "Save Results As Excel",
                     Filter = "Excel (*.xlsx)|*.xlsx",
+                    DefaultExt = "xlsx",
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                 };
 
@@ -73,9 +74,10 @@ namespace Sqlserver.maid.Commands.Grid
             {
                 var saveDialog = new SaveFileDialog
                 {
-                    FileName = "",
+                    FileName = Path.GetTempFileName(),
                     Title = "Save Results As Json",
                     Filter = "Json (*.json)|*.json",
+                    DefaultExt = "json",
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                 };
 
